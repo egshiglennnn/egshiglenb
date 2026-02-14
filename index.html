@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Egshiglen Batjargal - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0e27;
+            --bg-darker: #060918;
+            --text-white: #ffffff;
+            --text-gray: #a0a0b0;
+            --accent-cyan: #00d4ff;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --accent-orange: #f97316;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-white);
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            height: 1px;
+            animation: moveLine 20s linear infinite;
+        }
+
+        @keyframes moveLine {
+            from { transform: translateX(-100%) rotate(45deg); }
+            to { transform: translateX(100vw) rotate(45deg); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-white);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-white);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            padding: 0 4rem;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: left;
+        }
+
+        .hero h1 {
+            font-size: 6rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink), var(--accent-orange));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: 2rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: var(--text-white);
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-white);
+            border: 2px solid var(--accent-cyan);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Section Styles */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 8rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-white), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 4rem;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .about-photo {
+            position: relative;
+        }
+
+        .photo-container {
+            width: 100%;
+            aspect-ratio: 3/4;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            padding: 4px;
+        }
+
+        .photo-inner {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-darker);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--text-gray);
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+
+        .photo-glow {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.3) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-box {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            padding: 4rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            grid-column: 1;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            grid-column: 2;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+            z-index: 10;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .timeline-date {
+            color: var(--accent-cyan);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .timeline-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        .timeline-desc li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .timeline-desc li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.3);
+        }
+
+        .project-header {
+            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(168, 85, 247, 0.1));
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-date {
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+        }
+
+        .project-body {
+            padding: 2.5rem;
+        }
+
+        .project-desc {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .tag {
+            padding: 0.5rem 1rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .skill-card {
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 10px 40px rgba(168, 85, 247, 0.2);
+        }
+
+        .skill-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-cyan);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            color: var(--text-gray);
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .skill-list li::before {
+            content: '●';
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+        }
+
+        /* Role Cards */
+        .role-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(168, 85, 247, 0.05));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .role-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+        }
+
+        .role-card:hover::before {
+            opacity: 1;
+        }
+
+        .role-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .role-card:hover .role-icon {
+            transform: rotateY(180deg);
+        }
+
+        .role-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-white);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Contact */
+        .contact-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-link {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            color: var(--text-white);
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            nav {
+                padding: 1.5rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            section {
+                padding: 6rem 2rem;
+            }
+
+            .about-grid,
+            .timeline-item,
+            .projects-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .timeline-content {
+                text-align: left !important;
+                margin-left: 60px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="star" style="top: 10%; left: 20%;"></div>
+        <div class="star" style="top: 30%; left: 70%;"></div>
+        <div class="star" style="top: 60%; left: 40%;"></div>
+        <div class="star" style="top: 80%; left: 80%;"></div>
+        <div class="star" style="top: 15%; left: 90%;"></div>
+        <div class="star" style="top: 45%; left: 10%;"></div>
+        <div class="line" style="top: 20%; width: 200px;"></div>
+        <div class="line" style="top: 60%; width: 300px; animation-delay: 2s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">Egshiglen Batjargal</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Work</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>
+                Hi, I'm <span class="gradient-text">Egshiglen</span>
+            </h1>
+            <p class="hero-subtitle">Let's connect!</p>
+            <p style="color: var(--text-gray); font-size: 1.2rem; max-width: 700px; line-height: 1.8;">
+                Data analyst and policy researcher transforming complex data into actionable insights 
+                for meaningful social impact.
+            </p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+        <div style="margin-bottom: 6rem;">
+            <p style="font-size: 0.9rem; letter-spacing: 3px; color: var(--text-gray); margin-bottom: 1rem; text-transform: uppercase;">Introduction</p>
+            <h2 style="font-size: 5rem; font-weight: 900; margin-bottom: 2rem;">overview.</h2>
+            <p style="font-size: 1.2rem; line-height: 2; color: var(--text-gray); max-width: 900px;">
+                I'm a data analyst and policy researcher from Ulaanbaatar, Mongolia with expertise in Python, R, and SQL. 
+                My interests include machine learning, data visualization, policy analysis, and leveraging AI for social impact.
+            </p>
+        </div>
+
+        <div class="roles-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 6rem;">
+            <div class="role-card">
+                <div class="role-icon" style="background: linear-gradient(135deg, #00d4ff, #a855f7);">
+                    <svg width="80" height="80" viewBox="0 0 100 100" style="filter: drop-shadow(0 0 20px rgba(0,212,255,0.5));">
+                        <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <polygon points="50,25 75,37.5 75,62.5 50,75 25,62.5 25,37.5" fill="currentColor" opacity="0.3"/>
+                    </svg>
+                </div>
+                <h3 class="role-title">Data Analyst Intern</h3>
+            </div>
+
+            <div class="role-card">
+                <div class="role-icon" style="background: linear-gradient(135deg, #a855f7, #ec4899);">
+                    <svg width="80" height="80" viewBox="0 0 100 100" style="filter: drop-shadow(0 0 20px rgba(168,85,247,0.5));">
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="50" cy="50" r="20" fill="currentColor" opacity="0.3"/>
+                        <circle cx="50" cy="50" r="10" fill="currentColor"/>
+                    </svg>
+                </div>
+                <h3 class="role-title">Policy Researcher</h3>
+            </div>
+
+            <div class="role-card">
+                <div class="role-icon" style="background: linear-gradient(135deg, #ec4899, #f97316);">
+                    <svg width="80" height="80" viewBox="0 0 100 100" style="filter: drop-shadow(0 0 20px rgba(236,72,153,0.5));">
+                        <rect x="20" y="20" width="60" height="60" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(45 50 50)"/>
+                        <rect x="30" y="30" width="40" height="40" fill="currentColor" opacity="0.3" transform="rotate(45 50 50)"/>
+                    </svg>
+                </div>
+                <h3 class="role-title">VP of Governance</h3>
+            </div>
+
+            <div class="role-card">
+                <div class="role-icon" style="background: linear-gradient(135deg, #00d4ff, #ec4899);">
+                    <svg width="80" height="80" viewBox="0 0 100 100" style="filter: drop-shadow(0 0 20px rgba(0,212,255,0.5));">
+                        <path d="M 30 50 Q 50 20, 70 50 Q 50 80, 30 50" fill="currentColor" opacity="0.3" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </div>
+                <h3 class="role-title">Machine Learning Enthusiast</h3>
+            </div>
+        </div>
+        
+        <div class="about-grid">
+            <div class="about-photo">
+                <div class="photo-container">
+                    <div class="photo-inner">
+                        <img src="profile-photo.jpg" alt="Egshiglen Batjargal">
+                    </div>
+                </div>
+                <div class="photo-glow"></div>
+            </div>
+
+            <div class="about-content">
+                <p>
+                    I'm a data analyst and policy researcher passionate about leveraging data-driven insights 
+                    to create meaningful social impact. My work combines technical expertise in machine learning 
+                    and statistical analysis with a deep understanding of public policy challenges.
+                </p>
+                <p>
+                    At Carnegie Mellon University's Heinz College, I'm developing advanced skills in AI, 
+                    optimization, and database management while applying these tools to real-world sustainability 
+                    and social service challenges.
+                </p>
+                <p>
+                    Originally from Ulaanbaatar, Mongolia, I bring an international perspective to my work, 
+                    from analyzing transportation systems in Mongolia to engineering predictive frameworks for 
+                    Allegheny County.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+        <h2 class="section-title">Experience</h2>
+        <p class="section-subtitle">My professional journey</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Oct 2025 - Present</div>
+                    <h3 class="timeline-title">Data and Programming Intern</h3>
+                    <p class="timeline-company">The Sustainability Initiative at Carnegie Mellon University</p>
+                    <ul class="timeline-desc">
+                        <li>Led team of 5 interns designing sustainability storytelling focused on SDG goals</li>
+                        <li>Redesigned Tableau dashboard in Python using data mining and exploratory analysis</li>
+                        <li>Conducted 57 cold calls securing 35 interviews for sustainability mapping</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">June - Aug 2025</div>
+                    <h3 class="timeline-title">Data Analyst Intern</h3>
+                    <p class="timeline-company">Grow with Google Mongolia</p>
+                    <ul class="timeline-desc">
+                        <li>Analyzed Mongolian public transportation data using R to evaluate user behavior</li>
+                        <li>Designed and executed mixed-methods research with 10+ interviews and 50 surveys</li>
+                        <li>Authored 15-page strategic report on mobile app accessibility and UX</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Sep 2025 - Present</div>
+                    <h3 class="timeline-title">VP of Governance</h3>
+                    <p class="timeline-company">Heinz AI Club, Carnegie Mellon University</p>
+                    <ul class="timeline-desc">
+                        <li>Directed operations for 100+ graduate members</li>
+                        <li>Orchestrated 7+ technical events and lab sessions on LLMs and AI tools</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-subtitle">Featured work</p>
+
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">Credit Card Customer Segmentation</h3>
+                    <p class="project-date">Jan - Feb 2026</p>
+                </div>
+                <div class="project-body">
+                    <p class="project-desc">
+                        Developed and compared machine learning models (Random Forest, kNN) achieving 93.1% accuracy 
+                        through hyperparameter tuning and feature scaling.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">R</span>
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">Scikit-learn</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">LA Airbnb Market Analysis</h3>
+                    <p class="project-date">Oct - Dec 2025</p>
+                </div>
+                <div class="project-body">
+                    <p class="project-desc">
+                        Designed end-to-end market analysis and deployed interactive Python dashboard 
+                        reducing manual reporting time by 50%.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">SQL</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Data Viz</span>
+                        <span class="tag">Dashboard</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+        <h2 class="section-title">Skills</h2>
+        <p class="section-subtitle">Technical expertise</p>
+
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>Programming</h3>
+                <ul class="skill-list">
+                    <li>Python</li>
+                    <li>R</li>
+                    <li>SQL</li>
+                    <li>STATA</li>
+                </ul>
+            </div>
+
+            <div class="skill-card">
+                <h3>Data Analysis</h3>
+                <ul class="skill-list">
+                    <li>Machine Learning</li>
+                    <li>Statistical Analysis</li>
+                    <li>Regression Analysis</li>
+                    <li>Time Series</li>
+                </ul>
+            </div>
+
+            <div class="skill-card">
+                <h3>Visualization</h3>
+                <ul class="skill-list">
+                    <li>Tableau</li>
+                    <li>Power BI</li>
+                    <li>Matplotlib</li>
+                    <li>Interactive Dashboards</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="contact-content">
+            <h2 class="section-title">Let's Connect</h2>
+            <p class="section-subtitle">Get in touch for opportunities and collaborations</p>
+            <div class="contact-links">
+                <a href="/cdn-cgi/l/email-protection#15707774617f74677255747b716770623b7678603b707160" class="contact-link">Email</a>
+                <a href="https://linkedin.com/in/egshiglen/" target="_blank" class="contact-link">LinkedIn</a>
+                <a href="tel:202-855-2435" class="contact-link">Phone</a>
+            </div>
+        </div>
+    </section>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.g
